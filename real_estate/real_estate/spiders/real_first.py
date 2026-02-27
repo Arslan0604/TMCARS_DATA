@@ -1,5 +1,5 @@
 import scrapy
-import requests
+
 
 
 class RealFirstSpider(scrapy.Spider):
