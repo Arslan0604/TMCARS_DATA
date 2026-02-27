@@ -1,0 +1,10 @@
+[project]
+name = "tmcars-data"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "ipython>=9.10.0",
+    "scrapy-playwright>=0.0.46",
+]
