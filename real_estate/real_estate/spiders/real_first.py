@@ -1,9 +1,6 @@
 import scrapy
 from scrapy_playwright.page import PageMethod
 
-
-
-
 class RealFirstSpider(scrapy.Spider):
     name = "real_first"
     allowed_domains = ["tmcars.info"]
