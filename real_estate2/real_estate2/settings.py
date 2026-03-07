@@ -24,7 +24,7 @@ ROBOTSTXT_OBEY = True
 # Concurrency and throttling settings
 #CONCURRENT_REQUESTS = 16
 CONCURRENT_REQUESTS_PER_DOMAIN = 1
-DOWNLOAD_DELAY = 1
+DOWNLOAD_DELAY = 3  # Устанавливаем задержку в 3 секунды между запросами
 
 # Disable cookies (enabled by default)
 #COOKIES_ENABLED = False
@@ -40,15 +40,15 @@ DOWNLOAD_DELAY = 1
 
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
-#SPIDER_MIDDLEWARES = {
-#    "real_estate2.middlewares.RealEstate2SpiderMiddleware": 543,
-#}
+SPIDER_MIDDLEWARES = {
+   "real_estate2.middlewares.RealEstate2SpiderMiddleware": 543,
+}
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
-#DOWNLOADER_MIDDLEWARES = {
-#    "real_estate2.middlewares.RealEstate2DownloaderMiddleware": 543,
-#}
+DOWNLOADER_MIDDLEWARES = {
+   "real_estate2.middlewares.RealEstate2DownloaderMiddleware": 543,
+}
 
 # Enable or disable extensions
 # See https://docs.scrapy.org/en/latest/topics/extensions.html
@@ -58,9 +58,9 @@ DOWNLOAD_DELAY = 1
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    "real_estate2.pipelines.RealEstate2Pipeline": 300,
-#}
+ITEM_PIPELINES = {
+   "real_estate2.pipelines.RealEstate2Pipeline": 300,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
@@ -84,4 +84,5 @@ DOWNLOAD_DELAY = 1
 #HTTPCACHE_STORAGE = "scrapy.extensions.httpcache.FilesystemCacheStorage"
 
 # Set settings whose default value is deprecated to a future-proof value
+TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
 FEED_EXPORT_ENCODING = "utf-8"
