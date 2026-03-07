@@ -12,7 +12,7 @@ BOT_NAME = "real_estate"
 SPIDER_MODULES = ["real_estate.spiders"]
 NEWSPIDER_MODULE = "real_estate.spiders"
 
-CLOSESPIDER_ITEMCOUNT = 10
+
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent

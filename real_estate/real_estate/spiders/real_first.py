@@ -6,9 +6,7 @@ class RealFirstSpider(scrapy.Spider):
     allowed_domains = ["tmcars.info"]
     start_urls = ["https://tmcars.info/others/nedvijimost/prodaja-kvartir-i-domov"]
 
-    custom_settings = {
-        "CLOSESPIDER_ITEMCOUNT": 10
-    }
+  
 
     def parse(self, response):
         reals = response.css('.item-card2-desc')
