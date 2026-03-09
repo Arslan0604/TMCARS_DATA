@@ -1,5 +1,6 @@
 import scrapy
 from scrapy_playwright.page import PageMethod
+import json
 
 class RealSecondSpider(scrapy.Spider):
     name = "real_second"
@@ -32,11 +33,16 @@ class RealSecondSpider(scrapy.Spider):
                 meta={
                     "playwright": True,
                     "playwright_page_methods": [
-                        PageMethod("click", "button.show-phone"),
-                        PageMethod("wait_for_selector", "a[href^='tel']")  # надо найти селектор телефона по поставить здесь
+                        PageMethod("wait_for_selector", "a.show-phone"),
+                        PageMethod("click", "a.show-phone"),
+                        PageMethod("wait_for_selector", "a[href^='tel:']"),
+                        PageMethod("screenshot", path="debug.png", full_page=True),
                     ],
+                    "playwright_page_goto_kwargs": {
+                        "wait_until": "networkidle"
+                    },
                     **meta_data
-                }
+                } 
             )
                 
         # pagination
@@ -53,15 +59,31 @@ class RealSecondSpider(scrapy.Spider):
             
             
     def parse_detail(self, response):
-        phone = response.css("a[href^='tel']::text").get()  # замените на правильный селектор для телефона
+        phone = response.css("a[href^='tel:']::attr(href)").get()
+        
+        if phone:
+            phone = phone.replace("tel:", "").strip()
+            
+        if not phone:
+            rows = response.css("tbody tr")
+            for row in rows:
+                key = row.css("span::text").get("").replace(" :", "").strip()
+                if "телефон" in key.lower():
+                    # Try link first, then text
+                    phone = (
+                        row.css("a::attr(href)").get("").replace("tel:", "").strip() or
+                        row.css("a::text").get("").strip() or
+                        "".join(row.xpath("td//text()").getall()).strip()
+                    )
+                    break 
+        
+        
         
         rows = response.css("tbody tr")
-        
         data = {}
-        
         for row in rows:
             key = row.css("span::text").get()
-            value = row.css("td::text").get()
+            value = "".join(row.xpath("td/text()").getall()).strip()
             
             if key:
                 key = key.replace(" :", "").strip()
@@ -75,9 +97,6 @@ class RealSecondSpider(scrapy.Spider):
            "details": data 
             }
                            
-                
-                
-            
-        #  response.css(".entry-content-text p::text").get() # selector description
-        # response.css("td:has(span.font-weight-bold)::text").get() # selector for category 
         
+                
+                
