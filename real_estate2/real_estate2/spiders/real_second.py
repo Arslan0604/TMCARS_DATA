@@ -15,7 +15,7 @@ class RealSecondSpider(scrapy.Spider):
         yield scrapy.Request(
             urls,
             callback=self.parse,
-            meta={"offset": offset, "playwright": True },
+            meta={"offset": offset},
         )                                 # extracting data from the first page
 
     def parse(self, response):
@@ -35,8 +35,8 @@ class RealSecondSpider(scrapy.Spider):
                     "playwright_page_methods": [
                         PageMethod("wait_for_selector", "a.show-phone"),
                         PageMethod("click", "a.show-phone"),
-                        PageMethod("wait_for_selector", "a[href^='tel:']"),
-                        PageMethod("screenshot", path="debug.png", full_page=True),
+                        PageMethod("wait_for_selector", "a[href^='tel:']")
+                        
                     ],
                     "playwright_page_goto_kwargs": {
                         "wait_until": "networkidle"
@@ -54,7 +54,7 @@ class RealSecondSpider(scrapy.Spider):
             yield scrapy.Request(
                 next_url,
                 callback=self.parse,
-                meta={"offset": offset, "playwright": True }
+                meta={"offset": offset}
             )
             
             
@@ -96,7 +96,5 @@ class RealSecondSpider(scrapy.Spider):
            "phone": phone,
            "details": data 
             }
-                           
         
-                
-                
+
