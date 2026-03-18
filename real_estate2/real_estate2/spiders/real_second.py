@@ -1,17 +1,18 @@
+from urllib import response
 import scrapy
 import re
-
+import json
 
 class RealSecondSpider(scrapy.Spider):
     name = "real_second"
     allowed_domains = ["tmcars.info"]
     start_urls = ["https://tmcars.info/others/nedvijimost/prodaja-kvartir-i-domov"]
 
-    token = "dsotqunvo9htc4t6rq6j8k38mu8h8cal"
+    token = "rk8clbs9j5gmc6ju6mug307kkj67dai9"
     devid = "web-9e29cc45-be0f-41c1-add3-601807aeb30a"
 
     cookies = {
-        "SESSION": "_ym_uid=1750511050905819409; _ym_d=1773135408; currentUsername=arslan.datascience%40gmail.com; token=dsotqunvo9htc4t6rq6j8k38mu8h8cal; _gid=GA1.2.1901953467.1773744358; JSESSIONID=CDBD49617D437869EE6F3114B5FAA444; devId=web-9e29cc45-be0f-41c1-add3-601807aeb30a; _ym_isad=2; _ga_4MHT9PVHPE=GS2.1.s1773822607$o41$g1$t1773825722$j27$l0$h0; _ga_NJWV91RXNX=GS2.1.s1773822606$o42$g1$t1773825722$j27$l0$h0; _ga=GA1.1.132075739.1773135408"
+        "SESSION": "_ym_uid=1750511050905819409; _ym_d=1773832505; _gid=GA1.2.895276490.1773832505; _ym_isad=2; currentUsername=arslan.datascience%40gmail.com; token=rk8clbs9j5gmc6ju6mug307kkj67dai9; JSESSIONID=5384CA66A629E56D97E22149055D47BF; devId=web-9e29cc45-be0f-41c1-add3-601807aeb30a; _gat_gtag_UA_108380834_2=1; _ga_4MHT9PVHPE=GS2.1.s1773845655$o43$g1$t1773848014$j30$l0$h0; _ga=GA1.1.985529017.1773832505; _ga_NJWV91RXNX=GS2.1.s1773845655$o44$g1$t1773848014$j30$l0$h0"
     }
 
     def start_requests(self):
@@ -89,7 +90,7 @@ class RealSecondSpider(scrapy.Spider):
         # PHONE API REQUEST
         # -----------------------------
 
-        phone_api = "https://tmcars.info/productData/getContacts"
+       
 
         headers = {
             "Token": self.token,
@@ -121,13 +122,22 @@ class RealSecondSpider(scrapy.Spider):
     # -----------------------------
     def parse_phone(self, response, title, price, location, link, description, details):
 
-        data = response.json()
-        print("RAW API RESPONSE:", data) # eto vremmeno 
+        try:
+            data = json.loads(response.text)
+        except:
+            data = {}
+         
 
         phone = None
 
         if data.get("status"):
-            phone = data.get("contacts", {}).get("phoneNumber")
+            contacts = data.get("contacts", {})
+            phone = contacts.get("phoneNumber")
+            
+        if not phone and description:
+            m = re.search(r"\+?\d[\d\s\-]{7,}", description)
+            if m:
+                phone = m.group()
 
         yield {
             "title": title,
