@@ -31,11 +31,11 @@ ADDONS = {}
 
 # # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
-CLOSESPIDER_ITEMCOUNT = 10 # vremmenno, dlya testov. Udalit posle
+CLOSESPIDER_ITEMCOUNT = 5 # vremmenno, dlya testov. Udalit posle
 # # Concurrency and throttling settings
 CONCURRENT_REQUESTS = 1
 CONCURRENT_REQUESTS_PER_DOMAIN = 2
-DOWNLOAD_DELAY = 4
+DOWNLOAD_DELAY = 3
 USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"
 RANDOMIZE_DOWNLOAD_DELAY = True
 FEED_EXPORT_ENCODING = "utf-8"
