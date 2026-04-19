@@ -12,7 +12,7 @@ class RealSecondSpider(scrapy.Spider):
     devid = "web-9e29cc45-be0f-41c1-add3-601807aeb30a"
 
     cookies = {
-        "SESSION": "_ym_uid=1750511050905819409; _ym_d=1773832505; currentUsername=arslan.datascience%40gmail.com; token=rk8clbs9j5gmc6ju6mug307kkj67dai9; devId=web-9e29cc45-be0f-41c1-add3-601807aeb30a; _gid=GA1.2.416314995.1776243014; _ym_isad=2; JSESSIONID=2C8C9B02ABDEE1CC290538AABC17A5BE; _ga_4MHT9PVHPE=GS2.1.s1776251025$o50$g1$t1776251028$j57$l0$h0; _gat_gtag_UA_108380834_2=1; _ga_NJWV91RXNX=GS2.1.s1776251025$o51$g1$t1776251028$j57$l0$h0; _ga=GA1.1.985529017.1773832505"
+        "SESSION": "_ym_uid=1750511050905819409; _ym_d=1773832505; JSESSIONID=3F8D8F1EB82840A353C29CD20B67BBC1; currentUsername=arslan.datascience%40gmail.com; token=rk8clbs9j5gmc6ju6mug307kkj67dai9; devId=web-9e29cc45-be0f-41c1-add3-601807aeb30a; _gid=GA1.2.129919494.1776604132; _ym_isad=1; _gat_gtag_UA_108380834_2=1; _ga_4MHT9PVHPE=GS2.1.s1776604164$o51$g1$t1776604924$j45$l0$h0; _ga=GA1.1.985529017.1773832505; _ga_NJWV91RXNX=GS2.1.s1776604154$o52$g1$t1776604924$j45$l0$h0"
     }
 
     def start_requests(self):
