@@ -31,7 +31,7 @@ ADDONS = {}
 
 # # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
-CLOSESPIDER_ITEMCOUNT = 10 # vremmenno, dlya testov. Udalit posle
+CLOSESPIDER_ITEMCOUNT = 5 # vremmenno, dlya testov. Udalit posle
 # # Concurrency and throttling settings
 CONCURRENT_REQUESTS = 2
 CONCURRENT_REQUESTS_PER_DOMAIN = 3

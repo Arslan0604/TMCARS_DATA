@@ -122,6 +122,9 @@ class RealSecondSpider(scrapy.Spider):
     # -----------------------------
     def parse_phone(self, response, title, price, location, link, description, details):
 
+        print(response.text)
+        print("STATUS:", response.status)
+        print("BODY:", response.text[:300])  # первые 300 символов
         try:
             data = json.loads(response.text)
         except:
