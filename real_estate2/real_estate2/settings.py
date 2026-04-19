@@ -33,9 +33,9 @@ ADDONS = {}
 ROBOTSTXT_OBEY = True
 CLOSESPIDER_ITEMCOUNT = 5 # vremmenno, dlya testov. Udalit posle
 # # Concurrency and throttling settings
-CONCURRENT_REQUESTS = 2
+CONCURRENT_REQUESTS = 1
 CONCURRENT_REQUESTS_PER_DOMAIN = 3
-DOWNLOAD_DELAY = 4
+DOWNLOAD_DELAY = 8
 USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36"
 RANDOMIZE_DOWNLOAD_DELAY = True
 FEED_EXPORT_ENCODING = "utf-8"
