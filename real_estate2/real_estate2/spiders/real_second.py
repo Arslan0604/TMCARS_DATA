@@ -3,7 +3,7 @@ import scrapy
 import re
 import json
 # etot kode vrode rabotaet tut ya ubral kukies i postavil tolko 5 limit seychas eshe raz poprobuyu vrode idet s telefonom cherez API telefonnyy
-# rabotaet tolko v brausere datascience u menya 
+# rabotaet tolko v brausere datascience u menya pohodu kajdyy brouser imeet drugoy devid and tokens
 class RealSecondSpider(scrapy.Spider):
     name = "real_second"
     allowed_domains = ["tmcars.info"]
