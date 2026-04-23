@@ -40,7 +40,7 @@ USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36
 RANDOMIZE_DOWNLOAD_DELAY = True
 FEED_EXPORT_ENCODING = "utf-8"
 # # Disable cookies (enabled by default)
-# #COOKIES_ENABLED = False
+# COOKIES_ENABLED = False # vkluchil kukies posle testov mojno otkluchit
 
 # # Disable Telnet Console (enabled by default)
 # #TELNETCONSOLE_ENABLED = False

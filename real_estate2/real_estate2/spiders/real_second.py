@@ -2,8 +2,8 @@ from urllib import response
 import scrapy
 import re
 import json
-
-
+# etot kode vrode rabotaet tut ya ubral kukies i postavil tolko 5 limit seychas eshe raz poprobuyu vrode idet s telefonom cherez API telefonnyy
+# rabotaet tolko v brausere datascience u menya 
 class RealSecondSpider(scrapy.Spider):
     name = "real_second"
     allowed_domains = ["tmcars.info"]
@@ -12,7 +12,7 @@ class RealSecondSpider(scrapy.Spider):
     token = "dh7oqoum9n7j785uvfmrchps81np00ol"
     devid = "web-c1d1b58b-f86e-4895-a17e-bcdc44593e87"
 
-    cookies = "_ym_uid=1722877823156551761; _ym_d=1773116613; JSESSIONID=4343DF171EBE165C790A4C8488488339; currentUsername=arslan.datascience%40gmail.com; token=dh7oqoum9n7j785uvfmrchps81np00ol; devId=web-c1d1b58b-f86e-4895-a17e-bcdc44593e87; _gid=GA1.2.1156870977.1776934646; _ym_isad=2; _ga=GA1.1.754491871.1722877822; _ga_4MHT9PVHPE=GS2.1.s1776934652$o30$g0$t1776934916$j60$l0$h0; _ga_NJWV91RXNX=GS2.1.s1776934656$o30$g0$t1776934916$j60$l0$h0"
+    # cookies = "_ym_uid=1722877823156551761; _ym_d=1773116613; JSESSIONID=4343DF171EBE165C790A4C8488488339; currentUsername=arslan.datascience%40gmail.com; token=dh7oqoum9n7j785uvfmrchps81np00ol; devId=web-c1d1b58b-f86e-4895-a17e-bcdc44593e87; _gid=GA1.2.1156870977.1776934646; _ym_isad=2; _ga=GA1.1.754491871.1722877822; _ga_4MHT9PVHPE=GS2.1.s1776934652$o30$g0$t1776934916$j60$l0$h0; _ga_NJWV91RXNX=GS2.1.s1776934656$o30$g0$t1776934916$j60$l0$h0"
 
     def start_requests(self):
         offset = 0
@@ -102,7 +102,8 @@ class RealSecondSpider(scrapy.Spider):
             phone_api,
             method="GET",
             headers=headers,
-            cookies=self.cookies,
+            
+            # cookies=self.cookies,
             cb_kwargs={
                 "title": response.meta["title"],
                 "price": response.meta["price"],
