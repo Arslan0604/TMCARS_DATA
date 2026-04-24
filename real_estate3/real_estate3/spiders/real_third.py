@@ -3,10 +3,12 @@ import scrapy
 import re
 import json
 
-class RealSecondSpider(scrapy.Spider):
-    name = "real_second"
+
+class RealThirdSpider(scrapy.Spider):
+    name = "real_third"
     allowed_domains = ["tmcars.info"]
     start_urls = ["https://tmcars.info/others/nedvijimost/prodaja-kvartir-i-domov"]
+
 
     token = "dh7oqoum9n7j785uvfmrchps81np00ol"
     devid = "web-c1d1b58b-f86e-4895-a17e-bcdc44593e87"
