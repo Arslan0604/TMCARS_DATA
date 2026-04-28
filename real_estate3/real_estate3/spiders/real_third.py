@@ -13,7 +13,7 @@ class RealThirdSpider(scrapy.Spider):
     token = "dh7oqoum9n7j785uvfmrchps81np00ol"
     devid = "web-c1d1b58b-f86e-4895-a17e-bcdc44593e87"
 
-    # cookies = "_ym_uid=1722877823156551761; _ym_d=1773116613; JSESSIONID=4343DF171EBE165C790A4C8488488339; currentUsername=arslan.datascience%40gmail.com; token=dh7oqoum9n7j785uvfmrchps81np00ol; devId=web-c1d1b58b-f86e-4895-a17e-bcdc44593e87; _gid=GA1.2.1156870977.1776934646; _ym_isad=2; _ga=GA1.1.754491871.1722877822; _ga_4MHT9PVHPE=GS2.1.s1776934652$o30$g0$t1776934916$j60$l0$h0; _ga_NJWV91RXNX=GS2.1.s1776934656$o30$g0$t1776934916$j60$l0$h0"
+   
 
     def start_requests(self):
         offset = 0
@@ -33,11 +33,20 @@ class RealThirdSpider(scrapy.Spider):
     def parse(self, response):
         items = response.css('.item-card2-desc')
         for item in items:
+            date_str = item.css('span.pb-0.pt-0.mb-2.mt-2::text').get()
+            if date_str:
+                date_str = date_str.strip().lower()
+                allowed = ["şu wagt", "1 sag öň", "2 sag öň"]
+                if date_str not in allowed:
+                    continue
+            else:
+                continue
+            
             detail_url = response.urljoin(item.css("span a::attr(href)").get())
             meta_data = {
                 'title': item.css('.font-weight-bold::text').get(),
                 'description': item.css('.max-lines-p-desc::text').get(),
-                'time_to_paste': item.css('.mt-2::text').get(),
+                'time_to_paste': date_str,
                 'location': item.css('.ms-3::text').get(),
                 'price': item.css('.h5::text').get(),
                 'link': item.css('span a').attrib['href'],
@@ -111,7 +120,8 @@ class RealThirdSpider(scrapy.Spider):
                 "location": response.meta["location"],
                 "link": response.url,
                 "description": description,
-                "details": details
+                "time_to_paste": response.meta["time_to_paste"]
+                # "details": details
             },
             callback=self.parse_phone,
             dont_filter=True
@@ -121,7 +131,7 @@ class RealThirdSpider(scrapy.Spider):
     # -----------------------------
     # PHONE API RESPONSE
     # -----------------------------
-    def parse_phone(self, response, title, price, location, link, description, details):
+    def parse_phone(self, response, title, price, location, link, description, time_to_paste): ## zdes ya toje ubral details
 
        
         try:
@@ -146,13 +156,14 @@ class RealThirdSpider(scrapy.Spider):
             "price": price,
             "location": location,
             "description": description,
-            "link": link,
+            "link": link,  
             "phone": phone,
-            "details": details
+            "time_to_paste": time_to_paste
+            # "details": details
         }
 
 
-
+## placed time I need to put somewhere. response.css('span.pb-0.pt-0.mb-2.mt-2::text').get()
 
 
     
