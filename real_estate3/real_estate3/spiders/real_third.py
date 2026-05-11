@@ -164,6 +164,8 @@ class RealThirdSpider(scrapy.Spider):
 
 ## mogu v luboy moment podkluchit details esli nujno
 ## placed time I need to put somewhere. response.css('span.pb-0.pt-0.mb-2.mt-2::text').get()
+## I need to start to do that really fast bro 
+## need to proparly filtration urgent Arslan
 
 
     
