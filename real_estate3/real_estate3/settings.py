@@ -20,7 +20,7 @@ ADDONS = {}
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
-CLOSESPIDER_ITEMCOUNT = 5
+CLOSESPIDER_ITEMCOUNT = 2
 # Concurrency and throttling settings
 CONCURRENT_REQUESTS = 1
 CONCURRENT_REQUESTS_PER_DOMAIN = 3
