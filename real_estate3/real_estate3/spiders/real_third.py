@@ -14,8 +14,6 @@ class RealThirdSpider(scrapy.Spider):
     token = "dh7oqoum9n7j785uvfmrchps81np00ol"
     devid = "web-c1d1b58b-f86e-4895-a17e-bcdc44593e87"
 
-   
-
     def start_requests(self):
         offset = 0
 

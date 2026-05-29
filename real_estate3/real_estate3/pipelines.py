@@ -10,4 +10,18 @@ from itemadapter import ItemAdapter
 
 class RealEstate3Pipeline:
     def process_item(self, item, spider):
+        
+        adapter = ItemAdapter(item)
+        
+        ## Stripping whitespace from all string fields
+        field_names = adapter.field_names()
+        for field_name in field_names:
+            if field_name != "description":
+                value = adapter.get(field_name)
+                adapter[field_name] = value.strip()
+        
+        
+        
+        
+        
         return item

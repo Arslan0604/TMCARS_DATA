@@ -11,9 +11,9 @@ class RealEstate3Item(scrapy.Item):
     name = scrapy.Field()
     pass
 
-# def serialize_price(value):
-#     cleaned = value.replace("TMT", "").replace(" ", "").strip()
-#     return int(cleaned)
+def serialize_price(value):  # TMT 1 000 000 -> 1000000 but this is not working 
+    cleaned = value.replace("TMT", "").replace(" ", "").strip()
+    return int(cleaned)
 
 class RealThirdItem(scrapy.Item):
     title = scrapy.Field()
