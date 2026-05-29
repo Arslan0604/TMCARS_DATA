@@ -21,7 +21,16 @@ class RealEstate3Pipeline:
                 adapter[field_name] = value.strip()
         
         
-        
-        
-        
+        ## Price --> converting to float
+        price_keys = ['price']
+        for price_key in price_keys:
+            value = adapter.get(price_key)
+            if value is not None:
+                # Remove TMT and any whitespace, then convert to float
+                cleaned_value = value.replace("TMT", "").replace(" ", "").strip()
+                try:
+                    adapter[price_key] = float(cleaned_value)
+                except ValueError:
+                    adapter[price_key] = None
+
         return item
