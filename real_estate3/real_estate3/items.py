@@ -8,5 +8,18 @@ import scrapy
 
 class RealEstate3Item(scrapy.Item):
     # define the fields for your item here like:
-    # name = scrapy.Field()
+    name = scrapy.Field()
     pass
+
+# def serialize_price(value):
+#     cleaned = value.replace("TMT", "").replace(" ", "").strip()
+#     return int(cleaned)
+
+class RealThirdItem(scrapy.Item):
+    title = scrapy.Field()
+    price = scrapy.Field()
+    location = scrapy.Field()
+    description = scrapy.Field()
+    link = scrapy.Field()
+    phone = scrapy.Field()
+    time_to_paste = scrapy.Field()

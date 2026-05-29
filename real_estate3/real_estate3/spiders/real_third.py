@@ -2,6 +2,7 @@ from urllib import response
 import scrapy
 import re
 import json
+from real_estate3.items import RealThirdItem
 
 
 class RealThirdSpider(scrapy.Spider):
@@ -151,16 +152,27 @@ class RealThirdSpider(scrapy.Spider):
             if m:
                 phone = m.group()
 
-        yield {
-            "title": title,
-            "price": price,
-            "location": location,
-            "description": description,
-            "link": link,  
-            "phone": phone,
-            "time_to_paste": time_to_paste
-            # "details": details
-        }
+        real_third_item = RealThirdItem()
+        
+        real_third_item['title'] = title
+        real_third_item['price'] = price
+        real_third_item['location'] = location
+        real_third_item['description'] = description
+        real_third_item['link'] = link
+        real_third_item['phone'] = phone
+        real_third_item['time_to_paste'] = time_to_paste
+
+        yield real_third_item
+        # yield {
+        #     "title": title,
+        #     "price": price,
+        #     "location": location,
+        #     "description": description,
+        #     "link": link,  
+        #     "phone": phone,
+        #     "time_to_paste": time_to_paste
+        #     # "details": details
+        # }
 
 ## mogu v luboy moment podkluchit details esli nujno
 ## placed time I need to put somewhere. response.css('span.pb-0.pt-0.mb-2.mt-2::text').get()
