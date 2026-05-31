@@ -28,6 +28,10 @@ DOWNLOAD_DELAY = 5
 #USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36"
 RANDOMIZE_DOWNLOAD_DELAY = True
 
+SCRAPEOPS_API_KEY = "6cab1526-7898-4397-9aca-6b28d4af0a1b"
+SCRAPEOPS_FAKE_USER_AGENT_ENDPOINT = "https://headers.scrapeops.io/v1/user-agents"
+SCRAPEOPS_FAKE_USER_AGENT_ENABLED = True
+SCRAPEOPS_NUM_RESULTS = 5
 
 # Disable cookies (enabled by default)
 #COOKIES_ENABLED = False
