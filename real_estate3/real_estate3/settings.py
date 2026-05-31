@@ -29,8 +29,8 @@ DOWNLOAD_DELAY = 5
 RANDOMIZE_DOWNLOAD_DELAY = True
 
 SCRAPEOPS_API_KEY = "6cab1526-7898-4397-9aca-6b28d4af0a1b"
-SCRAPEOPS_FAKE_USER_AGENT_ENDPOINT = "https://headers.scrapeops.io/v1/user-agents"
-SCRAPEOPS_FAKE_USER_AGENT_ENABLED = True
+SCRAPEOPS_FAKE_BROWSER_HEADER_ENDPOINT = "https://headers.scrapeops.io/v1/browser-headers"
+SCRAPEOPS_FAKE_BROWSER_HEADER_ENABLED = True
 SCRAPEOPS_NUM_RESULTS = 5
 
 # Disable cookies (enabled by default)
@@ -54,7 +54,8 @@ SCRAPEOPS_NUM_RESULTS = 5
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
-    "real_estate3.middlewares.RealEstate3DownloaderMiddleware": 543,
+    # "real_estate3.middlewares.RealEstate3DownloaderMiddleware": 543,
+    "real_estate3.middlewares.ScrapeOpsFakeBrowserHeaderAgentMiddleware": 400,
 }
 
 # Enable or disable extensions

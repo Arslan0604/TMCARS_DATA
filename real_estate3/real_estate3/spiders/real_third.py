@@ -10,13 +10,7 @@ class RealThirdSpider(scrapy.Spider):
     allowed_domains = ["tmcars.info"]
     start_urls = ["https://tmcars.info/others/nedvijimost/prodaja-kvartir-i-domov"]
     
-    user_agent_list = [
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.6367.91 Safari/537.36",
-        "Mozilla/5.0 (Linux; Android 14; Pixel 8 Pro) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.6422.165 Mobile Safari/537.36",
-        "Mozilla/5.0 (iPhone; CPU iPhone OS 17_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4 Mobile/15E148 Safari/604.1",
-        "Mozilla/5.0 (Macintosh; Intel Mac OS X 14_4) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4 Safari/605.1.15",
-        "Mozilla/5.0 (Linux; Android 13; SM-S918B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.6367.82 Mobile Safari/537.36 SamsungBrowser/24.0"
-    ]
+  
 
 
     token = "dh7oqoum9n7j785uvfmrchps81np00ol"
@@ -27,12 +21,11 @@ class RealThirdSpider(scrapy.Spider):
 
         url = f"{self.start_urls[0]}?offset={offset}&max=150&lang=ru"
 
-        ua = self.user_agent_list[random.randint(0, len(self.user_agent_list)-1)]
+        
         
         yield scrapy.Request(
             url,
             callback=self.parse,
-            headers={"User-Agent": ua},
             meta={"offset": offset}
         )
 
@@ -62,12 +55,11 @@ class RealThirdSpider(scrapy.Spider):
                 'link': item.css('span a').attrib['href'],
             }
             
-            ua = self.user_agent_list[random.randint(0, len(self.user_agent_list)-1)]
+            
             
             yield scrapy.Request(
                 detail_url,
                 callback=self.parse_detail,
-                headers={"User-Agent": ua},
                 meta=meta_data
             )
         # pagination
@@ -79,7 +71,6 @@ class RealThirdSpider(scrapy.Spider):
             yield scrapy.Request(
                 next_url,
                 callback=self.parse,
-                headers={"User-Agent": self.user_agent_list[random.randint(0, len(self.user_agent_list)-1)]},
                 meta={"offset": offset}
             )
                  
@@ -114,13 +105,12 @@ class RealThirdSpider(scrapy.Spider):
         # PHONE API REQUEST
         # -----------------------------
 
-        ua = self.user_agent_list[random.randint(0, len(self.user_agent_list)-1)]
+        
         
         
         headers = {
             "Token": self.token,
             "devId": self.devid,
-            "User-Agent": ua
         }
         phone_api = f"https://tmcars.info/productData/getContacts?productId={product_id}&productType=OTHER"
 
@@ -149,7 +139,7 @@ class RealThirdSpider(scrapy.Spider):
     # -----------------------------
     def parse_phone(self, response, title, price, location, link, description, time_to_paste): ## zdes ya toje ubral details
 
-        ua = self.user_agent_list[random.randint(0, len(self.user_agent_list)-1)]
+       
         try:
             data = json.loads(response.text)
         except:
