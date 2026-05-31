@@ -27,7 +27,7 @@ class RealThirdSpider(scrapy.Spider):
 
         url = f"{self.start_urls[0]}?offset={offset}&max=150&lang=ru"
 
-        ua = random.choice(self.user_agent_list)
+        ua = self.user_agent_list[random.randint(0, len(self.user_agent_list)-1)]
         
         yield scrapy.Request(
             url,
@@ -62,7 +62,7 @@ class RealThirdSpider(scrapy.Spider):
                 'link': item.css('span a').attrib['href'],
             }
             
-            ua = random.choice(self.user_agent_list)
+            ua = self.user_agent_list[random.randint(0, len(self.user_agent_list)-1)]
             
             yield scrapy.Request(
                 detail_url,
@@ -79,7 +79,7 @@ class RealThirdSpider(scrapy.Spider):
             yield scrapy.Request(
                 next_url,
                 callback=self.parse,
-                headers={"User-Agent": random.choice(self.user_agent_list)},
+                headers={"User-Agent": self.user_agent_list[random.randint(0, len(self.user_agent_list)-1)]},
                 meta={"offset": offset}
             )
                  
@@ -114,7 +114,8 @@ class RealThirdSpider(scrapy.Spider):
         # PHONE API REQUEST
         # -----------------------------
 
-        ua = random.choice(self.user_agent_list)
+        ua = self.user_agent_list[random.randint(0, len(self.user_agent_list)-1)]
+        
         
         headers = {
             "Token": self.token,
@@ -148,7 +149,7 @@ class RealThirdSpider(scrapy.Spider):
     # -----------------------------
     def parse_phone(self, response, title, price, location, link, description, time_to_paste): ## zdes ya toje ubral details
 
-       
+        ua = self.user_agent_list[random.randint(0, len(self.user_agent_list)-1)]
         try:
             data = json.loads(response.text)
         except:
