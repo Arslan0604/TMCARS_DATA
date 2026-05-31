@@ -18,15 +18,20 @@ class RealEstate3Pipeline:
         for field_name in field_names:
             if field_name != "description":
                 value = adapter.get(field_name)
-                adapter[field_name] = value.strip()
+                if isinstance(value, str):
+                    adapter[field_name] = value.strip()
         
         
         ## Price --> converting to float
         price_keys = ['price']
         for price_key in price_keys:
             value = adapter.get(price_key)
-            value = value.replace("TMT", "").strip()
-            adapter[price_key] = str(value)
+            if isinstance(value, str):
+                value = value.replace("TMT", "").strip()
+                adapter[price_key] = str(value)
+            else:
+                adapter[price_key] = None
+                
                 
 
         return item
