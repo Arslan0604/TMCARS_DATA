@@ -1,332 +1,820 @@
 <!doctype html>
-<html lang="ru">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>TMCars Real Estate Parser UI</title>
+  <title>real_third Crawler Dashboard</title>
   <style>
     :root {
-      --bg: #f5f7fa;
-      --surface: #ffffff;
-      --text: #1b2330;
-      --muted: #5b687a;
-      --accent: #0f766e;
-      --accent-2: #115e59;
-      --danger: #b42318;
-      --border: #d8dee8;
-      --shadow: 0 12px 30px rgba(10, 20, 40, 0.08);
-      --radius: 14px;
+      --bg: #f4f6f8;
+      --panel: #ffffff;
+      --panel-soft: #f9fafb;
+      --text: #18212f;
+      --muted: #647084;
+      --border: #d9e0ea;
+      --green: #16785f;
+      --green-dark: #0f5d49;
+      --blue: #245f9f;
+      --blue-soft: #eaf2fb;
+      --red: #b42318;
+      --red-soft: #fff0ee;
+      --amber: #8a5a00;
+      --amber-soft: #fff7df;
+      --shadow: 0 12px 30px rgba(21, 33, 51, 0.08);
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
     body {
       margin: 0;
-      font-family: "Segoe UI", "Inter", "SF Pro Text", sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(circle at 10% 0%, #d7f4ef 0%, transparent 45%),
-        radial-gradient(circle at 90% 20%, #dbe7ff 0%, transparent 40%),
-        var(--bg);
       min-height: 100vh;
+      color: var(--text);
+      background: var(--bg);
+      font-family: Inter, "SF Pro Text", "Segoe UI", Arial, sans-serif;
+      font-size: 14px;
     }
 
-    .wrap {
-      max-width: 1120px;
-      margin: 36px auto;
-      padding: 0 16px 40px;
+    button,
+    input,
+    select {
+      font: inherit;
     }
 
-    .header {
-      background: var(--surface);
+    button {
       border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 20px;
+      background: var(--panel);
+      color: var(--text);
+      border-radius: 8px;
+      min-height: 40px;
+      padding: 0 13px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-weight: 700;
+    }
+
+    button:hover {
+      border-color: #b7c3d2;
+      background: #fbfcfe;
+    }
+
+    button:disabled {
+      cursor: not-allowed;
+      opacity: 0.55;
+    }
+
+    input,
+    select {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      min-height: 40px;
+      padding: 0 12px;
+      color: var(--text);
+      background: var(--panel);
+      outline: none;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: #7aa7d9;
+      box-shadow: 0 0 0 3px rgba(36, 95, 159, 0.14);
+    }
+
+    a {
+      color: var(--blue);
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .app {
+      width: min(1360px, calc(100% - 32px));
+      margin: 24px auto 40px;
+    }
+
+    .top {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 16px;
       margin-bottom: 18px;
     }
 
     .title {
       margin: 0;
-      font-size: 30px;
+      font-size: 26px;
       line-height: 1.2;
-      letter-spacing: -0.02em;
+      letter-spacing: 0;
     }
 
     .subtitle {
-      margin: 8px 0 0;
+      margin: 5px 0 0;
       color: var(--muted);
     }
 
-    .controls {
-      margin-top: 18px;
-      display: grid;
-      grid-template-columns: 1fr auto auto auto;
-      gap: 10px;
-    }
-
-    input, button, select {
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      padding: 11px 12px;
-      font-size: 14px;
-      outline: none;
-    }
-
-    input:focus, select:focus {
-      border-color: #7fb8af;
-      box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.15);
-    }
-
-    button {
-      cursor: pointer;
-      font-weight: 600;
-      transition: transform .08s ease, background .2s ease;
-    }
-
-    button:hover { transform: translateY(-1px); }
-    button:active { transform: translateY(0); }
-
-    .btn-primary {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: #fff;
-    }
-    .btn-primary:hover { background: var(--accent-2); }
-
-    .btn-secondary {
-      background: #fff;
-      color: var(--text);
-    }
-
-    .topbar {
+    .toolbar {
       display: flex;
       flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      margin: 14px 0;
+      justify-content: flex-end;
+      gap: 8px;
     }
 
-    .meta {
-      color: var(--muted);
-      font-size: 14px;
+    .button-primary {
+      color: #ffffff;
+      background: var(--green);
+      border-color: var(--green);
     }
 
-    .grid {
+    .button-primary:hover {
+      background: var(--green-dark);
+      border-color: var(--green-dark);
+    }
+
+    .button-danger {
+      color: var(--red);
+      background: var(--red-soft);
+      border-color: #ffc6be;
+    }
+
+    .button-danger:hover {
+      background: #ffe2de;
+      border-color: #f2a79c;
+    }
+
+    .button-blue {
+      color: var(--blue);
+      background: var(--blue-soft);
+      border-color: #bfd5ee;
+    }
+
+    .layout {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
-      gap: 14px;
+      grid-template-columns: 320px 1fr;
+      gap: 16px;
+      align-items: start;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .side {
+      position: sticky;
+      top: 18px;
+      overflow: hidden;
+    }
+
+    .section {
+      padding: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section:last-child {
+      border-bottom: 0;
+    }
+
+    .section-title {
+      margin: 0 0 12px;
+      font-size: 13px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .status-card {
+      display: grid;
+      gap: 10px;
+    }
+
+    .status-line {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      min-height: 28px;
+      padding: 0 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      background: var(--panel-soft);
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .badge-running {
+      color: var(--green-dark);
+      background: #e9f8f2;
+      border-color: #bde5d7;
+    }
+
+    .badge-idle {
+      color: var(--amber);
+      background: var(--amber-soft);
+      border-color: #f3d98b;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .metric {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px;
+      background: var(--panel-soft);
+    }
+
+    .metric-value {
+      display: block;
+      font-size: 23px;
+      line-height: 1.1;
+      font-weight: 850;
+    }
+
+    .metric-label {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .stack {
+      display: grid;
+      gap: 9px;
+    }
+
+    .downloads {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .main {
+      min-width: 0;
+    }
+
+    .filters {
+      display: grid;
+      grid-template-columns: minmax(220px, 1fr) 160px 160px auto;
+      gap: 10px;
+      align-items: center;
+      padding: 14px;
+      margin-bottom: 14px;
+    }
+
+    .view-toggle {
+      display: inline-grid;
+      grid-template-columns: 1fr 1fr;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      min-height: 40px;
+      background: var(--panel-soft);
+    }
+
+    .view-toggle button {
+      border: 0;
+      border-radius: 0;
+      min-height: 38px;
+      background: transparent;
+      color: var(--muted);
+    }
+
+    .view-toggle button.active {
+      background: var(--blue);
+      color: #ffffff;
+    }
+
+    .summary {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+      margin: 0 0 12px;
+      color: var(--muted);
+    }
+
+    .content {
+      min-height: 420px;
+    }
+
+    .table-wrap {
+      overflow: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 980px;
+    }
+
+    th,
+    td {
+      padding: 11px 12px;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      color: var(--muted);
+      background: #f8fafc;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    tbody tr:hover {
+      background: #fbfcfe;
+    }
+
+    .cell-title {
+      width: 260px;
+      font-weight: 800;
+    }
+
+    .cell-desc {
+      max-width: 330px;
+      color: #38465a;
+      line-height: 1.45;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 12px;
     }
 
     .card {
-      background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
+      border-radius: 8px;
+      background: var(--panel);
       padding: 14px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      animation: rise .2s ease;
+      display: grid;
+      gap: 10px;
+      box-shadow: 0 8px 18px rgba(21, 33, 51, 0.06);
     }
 
-    @keyframes rise {
-      from { opacity: 0; transform: translateY(6px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .card-title {
+    .card h3 {
       margin: 0;
-      font-size: 18px;
-      line-height: 1.3;
+      font-size: 16px;
+      line-height: 1.35;
+      letter-spacing: 0;
     }
 
-    .pill {
-      display: inline-block;
-      background: #e9f8f5;
-      color: #0f4f49;
+    .card-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      color: var(--muted);
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      min-height: 26px;
+      padding: 0 9px;
+      border: 1px solid var(--border);
       border-radius: 999px;
+      background: var(--panel-soft);
       font-size: 12px;
-      padding: 5px 9px;
-      font-weight: 600;
+      font-weight: 800;
     }
 
     .price {
-      font-size: 20px;
-      font-weight: 700;
-      color: #133f73;
+      font-size: 19px;
+      font-weight: 850;
+      color: var(--green-dark);
     }
 
-    .desc {
-      color: #2f3b4b;
+    .description {
+      color: #38465a;
       line-height: 1.45;
-      font-size: 14px;
+      display: -webkit-box;
+      -webkit-line-clamp: 5;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
       white-space: pre-line;
     }
 
-    .row {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      font-size: 14px;
+    .log {
+      margin: 0;
+      min-height: 160px;
+      max-height: 260px;
+      overflow: auto;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: #111827;
+      color: #d6e0ef;
+      font: 12px/1.55 "SFMono-Regular", Consolas, monospace;
+      white-space: pre-wrap;
     }
-
-    .label { color: var(--muted); }
-    .err { color: var(--danger); font-weight: 600; }
 
     .empty {
-      border: 1px dashed var(--border);
-      border-radius: var(--radius);
-      color: var(--muted);
-      padding: 24px;
+      display: grid;
+      place-items: center;
+      min-height: 320px;
+      padding: 28px;
       text-align: center;
-      background: #fff;
+      color: var(--muted);
+      border: 1px dashed var(--border);
+      border-radius: 8px;
+      background: var(--panel);
     }
 
-    @media (max-width: 860px) {
-      .controls { grid-template-columns: 1fr; }
-      .title { font-size: 24px; }
+    .small {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    @media (max-width: 1040px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .side {
+        position: static;
+      }
+
+      .filters {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .app {
+        width: min(100% - 20px, 1360px);
+        margin-top: 14px;
+      }
+
+      .top,
+      .filters {
+        grid-template-columns: 1fr;
+      }
+
+      .toolbar {
+        justify-content: stretch;
+      }
+
+      .toolbar button,
+      .downloads a,
+      .downloads button {
+        width: 100%;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <section class="header">
-      <h1 class="title">TMCars Real Estate Web Service</h1>
-      <p class="subtitle">Интерфейс для просмотра данных парсера `real_third.py`</p>
-
-      <div class="controls">
-        <input id="endpoint" value="/api/real_third" placeholder="URL API endpoint" />
-        <button class="btn-primary" id="loadApi">Загрузить из API</button>
-        <button class="btn-secondary" id="loadJson">Загрузить real_third.json</button>
-        <button class="btn-secondary" id="clear">Очистить</button>
+  <main class="app">
+    <header class="top">
+      <div>
+        <h1 class="title">real_third crawler dashboard</h1>
+        <p class="subtitle">Run the Scrapy spider, inspect scraped listings, and download the latest data.</p>
       </div>
-    </section>
+      <div class="toolbar">
+        <button id="startBtn" class="button-primary" title="Start spider">Start</button>
+        <button id="stopBtn" class="button-danger" title="Stop spider">Stop</button>
+        <button id="refreshBtn" class="button-blue" title="Refresh data">Refresh</button>
+      </div>
+    </header>
 
-    <div class="topbar">
-      <div class="meta" id="meta">Объявлений: 0</div>
-      <input id="search" placeholder="Поиск по названию, локации, телефону" />
+    <div class="layout">
+      <aside class="panel side">
+        <section class="section status-card">
+          <h2 class="section-title">Crawler</h2>
+          <div class="status-line">
+            <span>Status</span>
+            <span id="statusBadge" class="badge badge-idle"><span class="dot"></span>Idle</span>
+          </div>
+          <div class="metric-grid">
+            <div class="metric">
+              <span id="totalItems" class="metric-value">0</span>
+              <span class="metric-label">items</span>
+            </div>
+            <div class="metric">
+              <span id="visibleItems" class="metric-value">0</span>
+              <span class="metric-label">visible</span>
+            </div>
+          </div>
+          <div class="small" id="lastUpdate">No output yet</div>
+        </section>
+
+        <section class="section stack">
+          <h2 class="section-title">Downloads</h2>
+          <div class="downloads">
+            <a class="button-blue" href="/download/csv" role="button">CSV</a>
+            <a class="button-blue" href="/download/json" role="button">JSON</a>
+          </div>
+        </section>
+
+        <section class="section stack">
+          <h2 class="section-title">Spider Log</h2>
+          <pre id="log" class="log">No log yet.</pre>
+        </section>
+      </aside>
+
+      <section class="main">
+        <div class="panel filters">
+          <input id="search" type="search" placeholder="Search title, location, phone, description" />
+          <select id="locationFilter">
+            <option value="">All locations</option>
+          </select>
+          <select id="phoneFilter">
+            <option value="">All phones</option>
+            <option value="with">With phone</option>
+            <option value="missing">Missing phone</option>
+          </select>
+          <div class="view-toggle" aria-label="View mode">
+            <button id="tableView" class="active" type="button">Table</button>
+            <button id="cardView" type="button">Cards</button>
+          </div>
+        </div>
+
+        <div class="summary">
+          <span id="resultSummary">0 listings loaded</span>
+          <span id="pollSummary">Auto-refresh is active</span>
+        </div>
+
+        <div id="content" class="content"></div>
+      </section>
     </div>
-
-    <div id="status" class="meta"></div>
-    <div id="list" class="grid"></div>
-  </div>
+  </main>
 
   <script>
-    const state = { items: [], filtered: [] };
-    const listEl = document.getElementById("list");
-    const metaEl = document.getElementById("meta");
-    const statusEl = document.getElementById("status");
-    const endpointEl = document.getElementById("endpoint");
+    const state = {
+      items: [],
+      filtered: [],
+      status: {},
+      view: "table",
+      busy: false
+    };
+
+    const contentEl = document.getElementById("content");
+    const logEl = document.getElementById("log");
     const searchEl = document.getElementById("search");
+    const locationFilterEl = document.getElementById("locationFilter");
+    const phoneFilterEl = document.getElementById("phoneFilter");
+    const startBtn = document.getElementById("startBtn");
+    const stopBtn = document.getElementById("stopBtn");
+    const refreshBtn = document.getElementById("refreshBtn");
+    const statusBadgeEl = document.getElementById("statusBadge");
+    const totalItemsEl = document.getElementById("totalItems");
+    const visibleItemsEl = document.getElementById("visibleItems");
+    const lastUpdateEl = document.getElementById("lastUpdate");
+    const resultSummaryEl = document.getElementById("resultSummary");
+    const tableViewBtn = document.getElementById("tableView");
+    const cardViewBtn = document.getElementById("cardView");
 
-    function setStatus(text, isError = false) {
-      statusEl.textContent = text || "";
-      statusEl.className = isError ? "err" : "meta";
+    function normalize(value) {
+      return String(value || "").toLowerCase().trim();
     }
 
-    function normalize(v) {
-      return String(v || "").toLowerCase();
-    }
-
-    function render() {
-      metaEl.textContent = `Объявлений: ${state.filtered.length}`;
-      if (!state.filtered.length) {
-        listEl.innerHTML = '<div class="empty">Ничего не найдено. Попробуйте другой фильтр или источник данных.</div>';
-        return;
-      }
-
-      listEl.innerHTML = state.filtered.map(item => `
-        <article class="card">
-          <h3 class="card-title">${escapeHtml(item.title || "Без названия")}</h3>
-          <div class="row">
-            <span class="pill">${escapeHtml(item.time_to_paste || "нет времени")}</span>
-            <span>${escapeHtml(item.location || "без локации")}</span>
-          </div>
-          <div class="price">${escapeHtml(item.price || "Цена не указана")}</div>
-          <div class="desc">${escapeHtml(item.description || "Описание отсутствует")}</div>
-          <div class="row">
-            <span class="label">Телефон:</span>
-            <strong>${escapeHtml(item.phone || "не найден")}</strong>
-          </div>
-          <a href="${escapeAttr(item.link || "#")}" target="_blank" rel="noopener noreferrer">Открыть объявление</a>
-        </article>
-      `).join("");
-    }
-
-    function applySearch() {
-      const q = normalize(searchEl.value).trim();
-      if (!q) state.filtered = [...state.items];
-      else {
-        state.filtered = state.items.filter(i => {
-          const hay = [
-            i.title, i.location, i.phone, i.description, i.price, i.time_to_paste
-          ].map(normalize).join(" ");
-          return hay.includes(q);
-        });
-      }
-      render();
-    }
-
-    function setItems(data) {
-      if (!Array.isArray(data)) throw new Error("Ответ должен быть массивом JSON");
-      state.items = data;
-      applySearch();
-      setStatus(`Данные загружены: ${new Date().toLocaleString("ru-RU")}`);
-    }
-
-    async function loadFromApi() {
-      const endpoint = endpointEl.value.trim();
-      if (!endpoint) return setStatus("Укажите API endpoint", true);
-      setStatus("Загрузка из API...");
-      try {
-        const res = await fetch(endpoint);
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const data = await res.json();
-        setItems(data);
-      } catch (e) {
-        setStatus(`Ошибка API: ${e.message}`, true);
-      }
-    }
-
-    async function loadLocalJson() {
-      setStatus("Загрузка real_third.json...");
-      try {
-        const res = await fetch("./real_third.json");
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const data = await res.json();
-        setItems(data);
-      } catch (e) {
-        setStatus(`Ошибка файла: ${e.message}`, true);
-      }
-    }
-
-    function clearData() {
-      state.items = [];
-      state.filtered = [];
-      render();
-      setStatus("");
-    }
-
-    function escapeHtml(v) {
-      return String(v)
+    function escapeHtml(value) {
+      return String(value ?? "")
         .replaceAll("&", "&amp;")
         .replaceAll("<", "&lt;")
         .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;");
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#39;");
     }
 
-    function escapeAttr(v) {
-      return escapeHtml(v).replaceAll("'", "&#39;");
+    function display(value, fallback = "-") {
+      const text = String(value || "").trim();
+      return text || fallback;
     }
 
-    document.getElementById("loadApi").addEventListener("click", loadFromApi);
-    document.getElementById("loadJson").addEventListener("click", loadLocalJson);
-    document.getElementById("clear").addEventListener("click", clearData);
-    searchEl.addEventListener("input", applySearch);
+    function formatTime(timestamp) {
+      if (!timestamp) return "No output yet";
+      return `Updated ${new Date(timestamp * 1000).toLocaleString()}`;
+    }
 
-    render();
+    async function requestJson(url, options = {}) {
+      const response = await fetch(url, {
+        cache: "no-store",
+        ...options
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+      return response.json();
+    }
+
+    function setBusy(isBusy) {
+      state.busy = isBusy;
+      startBtn.disabled = isBusy || state.status.running;
+      stopBtn.disabled = isBusy || !state.status.running;
+      refreshBtn.disabled = isBusy;
+    }
+
+    function updateStatus(status) {
+      state.status = status || {};
+      const running = Boolean(state.status.running);
+      statusBadgeEl.className = `badge ${running ? "badge-running" : "badge-idle"}`;
+      statusBadgeEl.innerHTML = `<span class="dot"></span>${running ? "Running" : "Idle"}`;
+      totalItemsEl.textContent = String(state.items.length);
+      visibleItemsEl.textContent = String(state.filtered.length);
+      lastUpdateEl.textContent = formatTime(state.status.json_mtime);
+      setBusy(false);
+    }
+
+    function updateLocationFilter() {
+      const current = locationFilterEl.value;
+      const locations = [...new Set(state.items.map(item => display(item.location, "")).filter(Boolean))]
+        .sort((a, b) => a.localeCompare(b));
+
+      locationFilterEl.innerHTML = '<option value="">All locations</option>' + locations
+        .map(location => `<option value="${escapeHtml(location)}">${escapeHtml(location)}</option>`)
+        .join("");
+
+      if (locations.includes(current)) {
+        locationFilterEl.value = current;
+      }
+    }
+
+    function applyFilters() {
+      const query = normalize(searchEl.value);
+      const location = locationFilterEl.value;
+      const phoneMode = phoneFilterEl.value;
+
+      state.filtered = state.items.filter(item => {
+        const matchesQuery = !query || [
+          item.title,
+          item.price,
+          item.location,
+          item.description,
+          item.link,
+          item.phone,
+          item.time_to_paste
+        ].map(normalize).join(" ").includes(query);
+
+        const matchesLocation = !location || display(item.location, "") === location;
+        const hasPhone = Boolean(display(item.phone, ""));
+        const matchesPhone = !phoneMode || (phoneMode === "with" ? hasPhone : !hasPhone);
+        return matchesQuery && matchesLocation && matchesPhone;
+      });
+
+      render();
+    }
+
+    function render() {
+      totalItemsEl.textContent = String(state.items.length);
+      visibleItemsEl.textContent = String(state.filtered.length);
+      resultSummaryEl.textContent = `${state.filtered.length} of ${state.items.length} listings`;
+
+      tableViewBtn.classList.toggle("active", state.view === "table");
+      cardViewBtn.classList.toggle("active", state.view === "cards");
+
+      if (!state.filtered.length) {
+        contentEl.innerHTML = '<div class="empty">No listings to show yet. Start the spider or refresh after it finishes.</div>';
+        return;
+      }
+
+      contentEl.innerHTML = state.view === "table" ? renderTable() : renderCards();
+    }
+
+    function renderTable() {
+      const rows = state.filtered.map(item => `
+        <tr>
+          <td class="cell-title">${escapeHtml(display(item.title, "Untitled"))}</td>
+          <td>${escapeHtml(display(item.price))}</td>
+          <td>${escapeHtml(display(item.location))}</td>
+          <td>${escapeHtml(display(item.phone, "missing"))}</td>
+          <td>${escapeHtml(display(item.time_to_paste))}</td>
+          <td class="cell-desc">${escapeHtml(display(item.description))}</td>
+          <td><a href="${escapeHtml(display(item.link, "#"))}" target="_blank" rel="noopener noreferrer">Open</a></td>
+        </tr>
+      `).join("");
+
+      return `
+        <div class="panel table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Price</th>
+                <th>Location</th>
+                <th>Phone</th>
+                <th>Time</th>
+                <th>Description</th>
+                <th>Link</th>
+              </tr>
+            </thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>
+      `;
+    }
+
+    function renderCards() {
+      return `
+        <div class="cards">
+          ${state.filtered.map(item => `
+            <article class="card">
+              <h3>${escapeHtml(display(item.title, "Untitled"))}</h3>
+              <div class="card-meta">
+                <span class="chip">${escapeHtml(display(item.location))}</span>
+                <span class="chip">${escapeHtml(display(item.time_to_paste))}</span>
+              </div>
+              <div class="price">${escapeHtml(display(item.price, "Price missing"))}</div>
+              <div class="description">${escapeHtml(display(item.description, "Description missing"))}</div>
+              <div><strong>Phone:</strong> ${escapeHtml(display(item.phone, "missing"))}</div>
+              <a href="${escapeHtml(display(item.link, "#"))}" target="_blank" rel="noopener noreferrer">Open listing</a>
+            </article>
+          `).join("")}
+        </div>
+      `;
+    }
+
+    async function refreshAll() {
+      try {
+        const [status, items, logs] = await Promise.all([
+          requestJson("/api/status"),
+          requestJson("/api/data"),
+          requestJson("/api/logs?lines=80")
+        ]);
+        state.items = Array.isArray(items) ? items : [];
+        logEl.textContent = logs.log || "No log yet.";
+        updateLocationFilter();
+        applyFilters();
+        updateStatus(status);
+      } catch (error) {
+        logEl.textContent = `Dashboard error: ${error.message}`;
+        setBusy(false);
+      }
+    }
+
+    async function startSpider() {
+      setBusy(true);
+      try {
+        const status = await requestJson("/api/start", { method: "POST" });
+        updateStatus(status);
+        await refreshAll();
+      } catch (error) {
+        logEl.textContent = `Start failed: ${error.message}`;
+        setBusy(false);
+      }
+    }
+
+    async function stopSpider() {
+      setBusy(true);
+      try {
+        const status = await requestJson("/api/stop", { method: "POST" });
+        updateStatus(status);
+        await refreshAll();
+      } catch (error) {
+        logEl.textContent = `Stop failed: ${error.message}`;
+        setBusy(false);
+      }
+    }
+
+    startBtn.addEventListener("click", startSpider);
+    stopBtn.addEventListener("click", stopSpider);
+    refreshBtn.addEventListener("click", refreshAll);
+    searchEl.addEventListener("input", applyFilters);
+    locationFilterEl.addEventListener("change", applyFilters);
+    phoneFilterEl.addEventListener("change", applyFilters);
+    tableViewBtn.addEventListener("click", () => {
+      state.view = "table";
+      render();
+    });
+    cardViewBtn.addEventListener("click", () => {
+      state.view = "cards";
+      render();
+    });
+
+    refreshAll();
+    setInterval(refreshAll, 3000);
   </script>
 </body>
 </html>
