@@ -33,6 +33,15 @@ SCRAPEOPS_FAKE_BROWSER_HEADER_ENDPOINT = "https://headers.scrapeops.io/v1/browse
 SCRAPEOPS_FAKE_BROWSER_HEADER_ENABLED = True
 SCRAPEOPS_NUM_RESULTS = 5
 
+ROTATING_PROXY_LIST = [
+    "103.81.194.164:4444",
+    "173.212.245.136:8888",
+    "174.138.162.236:8001",
+    "118.99.103.114:32491",
+    "72.56.96.98:1080"
+    
+]
+
 # Disable cookies (enabled by default)
 #COOKIES_ENABLED = False
 
