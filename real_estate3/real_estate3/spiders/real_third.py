@@ -15,6 +15,7 @@ class RealThirdSpider(scrapy.Spider):
 
     token = "dh7oqoum9n7j785uvfmrchps81np00ol"
     devid = "web-c1d1b58b-f86e-4895-a17e-bcdc44593e87"
+    # proxy = "socks5h://sph9pd4cp5:rS49A6z=tieZdm2rIi@gate.decodo.com:7000"
 
     def start_requests(self):
         offset = 0
@@ -39,7 +40,7 @@ class RealThirdSpider(scrapy.Spider):
             date_str = item.css('span.pb-0.pt-0.mb-2.mt-2::text').get()
             if date_str:
                 date_str = date_str.strip().lower()
-                allowed = ["şu wagt", "1 sag öň", "2 sag öň"]
+                allowed = ["şu wagt"] # mojno dobavit eslit nujno eshe vremya 1 sag on i 2 sag on, esli nujno
                 if date_str not in allowed:
                     continue
             else:
@@ -72,6 +73,7 @@ class RealThirdSpider(scrapy.Spider):
                 next_url,
                 callback=self.parse,
                 meta={"offset": offset}
+                
             )
                  
     # -----------------------------
@@ -130,6 +132,7 @@ class RealThirdSpider(scrapy.Spider):
                 # "details": details
             },
             callback=self.parse_phone,
+            
             dont_filter=True
         )
 

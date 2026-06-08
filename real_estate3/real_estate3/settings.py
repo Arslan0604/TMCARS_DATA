@@ -20,27 +20,20 @@ ADDONS = {}
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
-CLOSESPIDER_ITEMCOUNT = 5
+CLOSESPIDER_ITEMCOUNT = 10
 # Concurrency and throttling settings
 CONCURRENT_REQUESTS = 1
 CONCURRENT_REQUESTS_PER_DOMAIN = 3
-DOWNLOAD_DELAY = 4
+DOWNLOAD_DELAY = 5
 #USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36"
 RANDOMIZE_DOWNLOAD_DELAY = True
 
 SCRAPEOPS_API_KEY = "6cab1526-7898-4397-9aca-6b28d4af0a1b"
 SCRAPEOPS_FAKE_BROWSER_HEADER_ENDPOINT = "https://headers.scrapeops.io/v1/browser-headers"
 SCRAPEOPS_FAKE_BROWSER_HEADER_ENABLED = True
-SCRAPEOPS_NUM_RESULTS = 5
+SCRAPEOPS_NUM_RESULTS = 10
 
-ROTATING_PROXY_LIST = [
-    "103.81.194.164:4444",
-    "173.212.245.136:8888",
-    "174.138.162.236:8001",
-    "118.99.103.114:32491",
-    "72.56.96.98:1080"
-    
-]
+
 
 # Disable cookies (enabled by default)
 #COOKIES_ENABLED = False
@@ -65,6 +58,8 @@ ROTATING_PROXY_LIST = [
 DOWNLOADER_MIDDLEWARES = {
     # "real_estate3.middlewares.RealEstate3DownloaderMiddleware": 543,
     "real_estate3.middlewares.ScrapeOpsFakeBrowserHeaderAgentMiddleware": 400,
+    # "rotating_proxies.middlewares.RotatingProxyMiddleware": 610,
+    # "rotating_proxies.middlewares.BanDetectionMiddleware": 620,
 }
 
 # Enable or disable extensions
