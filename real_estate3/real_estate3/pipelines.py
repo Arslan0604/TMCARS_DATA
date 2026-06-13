@@ -5,10 +5,26 @@
 
 
 # useful for handling different item types with a single interface
+import psycopg2
 from itemadapter import ItemAdapter
 
 
+
 class RealEstate3Pipeline:
+    
+    def open_spider(self, spider):
+        self.conn = psycopg2.connect(
+            host="localhost",
+            port=5432,
+            database="parser_db",
+            user="macbookpro"
+        )
+        self.cur = self.conn.cursor()
+    def close_spider(self, spider):
+        self.conn.commit()
+        self.cur.close()
+        self.conn.close()
+        
     def process_item(self, item, spider):
         
         adapter = ItemAdapter(item)
@@ -34,4 +50,28 @@ class RealEstate3Pipeline:
                 
                 
 
+        # INSERT INTO DB
+        self.cur.execute("""
+            INSERT INTO real_estate3 (
+                title,
+                price,
+                location,
+                description,
+                link,
+                phone,
+                time_to_paste
+            )
+            VALUES (%s,%s,%s,%s,%s,%s,%s)
+            ON CONFLICT (link) DO NOTHING
+        """, (
+            adapter.get("title"),
+            adapter.get("price"),
+            adapter.get("location"),
+            adapter.get("description"),
+            adapter.get("link"),
+            adapter.get("phone"),
+            adapter.get("time_to_paste")
+        ))
+
         return item
+        
