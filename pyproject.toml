@@ -6,7 +6,10 @@ readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
     "ipython>=9.10.0",
+    "openpyxl>=3.1.5",
+    "pandas>=3.0.3",
     "psycopg2>=2.9.12",
+    "psycopg2-binary>=2.9.12",
     "scrapy-playwright>=0.0.46",
     "scrapy-rotating-proxies>=0.6.2",
 ]
