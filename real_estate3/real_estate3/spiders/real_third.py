@@ -10,11 +10,15 @@ class RealThirdSpider(scrapy.Spider):
     allowed_domains = ["tmcars.info"]
     start_urls = ["https://tmcars.info/others/nedvijimost/prodaja-kvartir-i-domov"]
     
-  
+    # s account arslan.dmarketing@gmail.com
+    
+    # token = "p634rbfnrnb0oq7sin4am575g1vprlvv"
+    # devid = "web-ee471187-9287-4287-8485-ac55c7047867"
 
-
-    token = "dh7oqoum9n7j785uvfmrchps81np00ol"
-    devid = "web-c1d1b58b-f86e-4895-a17e-bcdc44593e87"
+    # s account aslan.datascience@gmail.com
+    
+    token = "dh7oqoum9n7j785uvfmrchps81np00ol"  
+    devid = "web-c1d1b58b-f86e-4895-a17e-bcdc44593e87" 
     # proxy = "socks5h://sph9pd4cp5:rS49A6z=tieZdm2rIi@gate.decodo.com:7000"
 
     def start_requests(self):
