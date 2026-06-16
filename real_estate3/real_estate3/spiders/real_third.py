@@ -8,17 +8,19 @@ import random
 class RealThirdSpider(scrapy.Spider):
     name = "real_third"
     allowed_domains = ["tmcars.info"]
-    start_urls = ["https://tmcars.info/others/nedvijimost/prodaja-kvartir-i-domov"]
+    # start_urls = ["https://tmcars.info/others/nedvijimost/prodaja-kvartir-i-domov"]
+    start_urls = ["https://tmcars.info/ashgabat/others/nedvijimost/prodaja-kvartir-i-domov"] # zdes tolko ashgabat
     
     # s account arslan.dmarketing@gmail.com
     
-    # token = "p634rbfnrnb0oq7sin4am575g1vprlvv"
-    # devid = "web-ee471187-9287-4287-8485-ac55c7047867"
+    #token = "p634rbfnrnb0oq7sin4am575g1vprlvv"
+    #devid = "web-ee471187-9287-4287-8485-ac55c7047867"
 
     # s account aslan.datascience@gmail.com
     
     token = "dh7oqoum9n7j785uvfmrchps81np00ol"  
     devid = "web-c1d1b58b-f86e-4895-a17e-bcdc44593e87" 
+    
     # proxy = "socks5h://sph9pd4cp5:rS49A6z=tieZdm2rIi@gate.decodo.com:7000"
 
     def start_requests(self):
@@ -44,7 +46,7 @@ class RealThirdSpider(scrapy.Spider):
             date_str = item.css('span.pb-0.pt-0.mb-2.mt-2::text').get()
             if date_str:
                 date_str = date_str.strip().lower()
-                allowed = ["şu wagt"] # mojno dobavit eslit nujno eshe vremya 1 sag on i 2 sag on, esli nujno
+                allowed = ["şu wagt", "1 sag öň", "2 sag öň"] 
                 if date_str not in allowed:
                     continue
             else:
