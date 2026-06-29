@@ -1,6 +1,6 @@
 import pandas as pd
 import psycopg2
-from datetime import datetime
+from datetime import datetime, timedelta
 
 conn = psycopg2.connect(
     database="parser_db",
@@ -38,7 +38,8 @@ df = df[df["location"].notna()]
 df = df.sort_values(by="id", ascending=False)
 
 # имя файла по текущей дате
-filename = datetime.now().strftime("%d.%m.%Y.xlsx")
+filename = datetime.now().strftime("%d.%m.%Y_Merdan.xlsx")
+
 
 # экспорт
 df.to_excel(filename, index=False)

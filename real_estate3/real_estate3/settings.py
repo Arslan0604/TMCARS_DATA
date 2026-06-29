@@ -28,10 +28,10 @@ DOWNLOAD_DELAY = 5
 #USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36"
 RANDOMIZE_DOWNLOAD_DELAY = True
 
-SCRAPEOPS_API_KEY = "6cab1526-7898-4397-9aca-6b28d4af0a1b"
-SCRAPEOPS_FAKE_BROWSER_HEADER_ENDPOINT = "https://headers.scrapeops.io/v1/browser-headers"
-SCRAPEOPS_FAKE_BROWSER_HEADER_ENABLED = True
-SCRAPEOPS_NUM_RESULTS = 25
+# SCRAPEOPS_API_KEY = "6cab1526-7898-4397-9aca-6b28d4af0a1b"
+# SCRAPEOPS_FAKE_BROWSER_HEADER_ENDPOINT = "https://headers.scrapeops.io/v1/browser-headers"
+# SCRAPEOPS_FAKE_BROWSER_HEADER_ENABLED = True
+# SCRAPEOPS_NUM_RESULTS = 25
 
 
 
@@ -56,8 +56,8 @@ SCRAPEOPS_NUM_RESULTS = 25
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
-    # "real_estate3.middlewares.RealEstate3DownloaderMiddleware": 543,
-    "real_estate3.middlewares.ScrapeOpsFakeBrowserHeaderAgentMiddleware": 400,
+    "real_estate3.middlewares.RealEstate3DownloaderMiddleware": 543,
+    # "real_estate3.middlewares.ScrapeOpsFakeBrowserHeaderAgentMiddleware": 400,
     # "rotating_proxies.middlewares.RotatingProxyMiddleware": 610,
     # "rotating_proxies.middlewares.BanDetectionMiddleware": 620,
 }
